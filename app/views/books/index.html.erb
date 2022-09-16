@@ -1,22 +1,40 @@
-<h1>Books</h1>
-
-
-<% @books.each do |book| %>
-
-  <p>title</p>
-  <span><%= book.title %></span>
-
-  <%= link_to "Show", book_path(book.id)%>
-  <%= link_to "Edit", edit_book_path(book.id)%>
-  <%= link_to "Destroy", book_path(book.id), method: :delete%>
-  <p>body</p>
-  <span>
-  <%= book.body%></span>
-
+<% if @book.errors.any? %>
+<%= @book.errors.count %>error prohibited this book from being saved:
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
 <% end %>
 
-
-
+<h1>Books</h1>
+<% @books.each do |book|%>
+<table>
+  <colgroup>
+  <col style="width: 20%;">
+  <col style="width: 20%;">
+  <col style="width: 60%;">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th colspan="10"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <tb><%= book.title %></tb>
+      <tb><%= book.body %></tb>
+      <tb>
+          <%= link_to "Show", book_path(book.id)%>
+          <%= link_to "Edit", edit_book_path(book.id)%>
+          <%= link_to "Destroy", book_path(book.id), method: :delete%>
+      </tb>
+    </tr>
+  </tbody>
+</table>
+<% end %>
 <h2>New book</h2>
 
 <%= form_with model: @book, url: "/books", method: :post do |f| %>
